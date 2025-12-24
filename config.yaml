@@ -1,0 +1,9 @@
+name: "My Example Server"
+description: "An example MCP server"
+icon: "assets/icon.png"
+
+auth:
+  type: oauth
+  provider: "github"
+  # OAuth flow handled by AuthProvider in server code
+  # Backend calls /auth/{provider}/url, /auth/{provider}/exchange, etc.
