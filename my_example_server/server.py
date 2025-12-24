@@ -14,7 +14,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-mcp = FastMCP("My Example Server", host="0.0.0.0", port=8000)
+# Get port from environment variable (default 8000 for local, 8080 for Knative)
+PORT = int(os.environ.get("PORT", 8000))
+
+mcp = FastMCP("My Example Server", host="0.0.0.0", port=PORT)
 
 @mcp.tool()
 async def example_tool(query: str) -> str:
@@ -48,7 +51,7 @@ def main():
         host.register_auth(GitHubAuthProvider())
 
         # Use gumstack host which handles middleware, interceptors, and auth routes
-        host.run(host="0.0.0.0", port=8000)
+        host.run(host="0.0.0.0", port=PORT)
     else:
         # Local development without gumstack
         mcp.run(transport=args.transport)
