@@ -5,7 +5,7 @@ import os
 from mcp.gumstack import GumstackHost
 from mcp.server.fastmcp import FastMCP
 
-from my_example_server.utils.auth import GitHubAuthProvider, get_credentials
+from my_example_server.utils.auth import get_credentials
 
 
 logging.basicConfig(
@@ -22,15 +22,14 @@ mcp = FastMCP("My Example Server", host="0.0.0.0", port=PORT)
 @mcp.tool()
 async def example_tool(query: str) -> str:
     """
-    Example tool using OAuth credentials.
+    Example tool using user-provided credentials.
 
     Args:
         query: The query to process
     """
-    # get_credentials() returns OAuth tokens stored by backend after OAuth exchange
     creds = await get_credentials()
-    access_token = creds.get("access_token", "")
-    logger.info("Processing with OAuth token: %s...", access_token[:8] if access_token else "none")
+    api_key = creds.get("api_key", "")
+    logger.info("Processing with credential: %s...", api_key[:8])
     return f"Processed: {query}"
 
 
@@ -46,9 +45,6 @@ def main():
 
     if os.environ.get("ENVIRONMENT") != "local":
         host = GumstackHost(mcp)
-
-        # Register OAuth provider for github
-        host.register_auth(GitHubAuthProvider())
 
         # Use gumstack host which handles middleware, interceptors, and auth routes
         host.run(host="0.0.0.0", port=PORT)

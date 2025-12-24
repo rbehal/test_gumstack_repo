@@ -1,5 +1,7 @@
 # Dockerfile for My Example Server
 # Auto-generated from gumstack-mcp-template-python
+# syntax=docker/dockerfile:1
+
 FROM python:3.11-slim
 
 WORKDIR /app
@@ -10,13 +12,18 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy dependency files
-COPY pyproject.toml ./
+COPY pyproject.toml uv.lock README.md ./
 
 # Install uv package manager
 RUN pip install --no-cache-dir uv
 
 # Install Python dependencies
-RUN uv sync --frozen
+# Mount the GAR token as a secret (secure - not stored in image layers)
+RUN --mount=type=secret,id=gar_token \
+    set -e && \
+    export UV_INDEX_GUMSTACK_PRIVATE_USERNAME=oauth2accesstoken && \
+    export UV_INDEX_GUMSTACK_PRIVATE_PASSWORD="$(cat /run/secrets/gar_token)" && \
+    uv sync --frozen
 
 # Copy application code
 COPY . .

@@ -3,7 +3,10 @@ description: "An example MCP server"
 icon: "assets/icon.png"
 
 auth:
-  type: oauth
-  provider: "github"
-  # OAuth flow handled by AuthProvider in server code
-  # Backend calls /auth/{provider}/url, /auth/{provider}/exchange, etc.
+  type: cred
+  credentials:
+    - name: "api_key"
+      label: "API Key"
+      description: "Your API key"
+      placeholder: "sk-..."
+      secret: true
