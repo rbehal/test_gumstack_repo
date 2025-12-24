@@ -4,6 +4,8 @@ import os
 
 from mcp.gumstack import GumstackHost
 from mcp.server.fastmcp import FastMCP
+from starlette.requests import Request
+from starlette.responses import JSONResponse
 
 from my_example_server.utils.auth import get_credentials
 
@@ -18,6 +20,11 @@ logger = logging.getLogger(__name__)
 PORT = int(os.environ.get("PORT", 8000))
 
 mcp = FastMCP("My Example Server", host="0.0.0.0", port=PORT)
+
+# Health check endpoint for Knative readiness/liveness probes
+@mcp.custom_route("/health_check", methods=["GET"])
+async def health_check(request: Request) -> JSONResponse:
+    return JSONResponse({"status": "ok"})
 
 @mcp.tool()
 async def example_tool(query: str) -> str:
