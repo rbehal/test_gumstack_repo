@@ -1,19 +1,19 @@
 # My Example Server
 
-An example MCP serversdffdsf
+An example MCP server
 
-## Setupfdsdsdsffds
+## Setup
 
 ```bash
 # Install dependencies
 uv sync
 
 # Copy environment file
-cp example.env .envsdfsdffsd
+cp example.env .env
 
 # Edit .env with your values
 ```
-asdfds
+
 ## Local Development
 
 ```bash
@@ -21,7 +21,7 @@ asdfds
 ./run.sh
 
 # Or directly
-uv run python -m src.serveradsfsadfs
+uv run python -m src.server
 ```
 
 

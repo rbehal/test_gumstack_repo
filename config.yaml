@@ -7,3 +7,6 @@ auth:
   provider: "github"
   # OAuth flow handled by AuthProvider in server code
   # Backend calls /auth/{provider}/url, /auth/{provider}/exchange, etc.
+tools:
+  - name: "example_tool"
+    description: "Example tool using credentials to process a query"
