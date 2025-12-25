@@ -9,7 +9,7 @@ An example MCP server
 uv sync
 
 # Copy environment file
-cp example.env .env
+cp example.env .envsdfsdffsd
 
 # Edit .env with your values
 ```
