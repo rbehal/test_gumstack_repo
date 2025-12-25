@@ -2,7 +2,7 @@
 
 An example MCP serversdffdsf
 
-## Setup
+## Setupfdsds
 
 ```bash
 # Install dependencies
