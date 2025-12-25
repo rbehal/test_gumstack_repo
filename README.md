@@ -21,7 +21,7 @@ cp example.env .envsdfsdffsd
 ./run.sh
 
 # Or directly
-uv run python -m src.server
+uv run python -m src.serveradsfsadfs
 ```
 
 
