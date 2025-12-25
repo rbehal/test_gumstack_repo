@@ -18,12 +18,12 @@ COPY pyproject.toml uv.lock README.md ./
 RUN pip install --no-cache-dir uv
 
 # Install Python dependencies
-# Mount the GAR token as a secret (secure - not stored in image layers)
+# Mount the GAR token as a secret
 RUN --mount=type=secret,id=gar_token \
     set -e && \
     export UV_INDEX_GUMSTACK_PRIVATE_USERNAME=oauth2accesstoken && \
     export UV_INDEX_GUMSTACK_PRIVATE_PASSWORD="$(cat /run/secrets/gar_token)" && \
-    uv sync --frozen
+    uv sync
 
 # Copy application code
 COPY . .

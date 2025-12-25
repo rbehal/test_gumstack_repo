@@ -27,9 +27,9 @@ uv run python -m src.server
 
 ## Authentication
 
-This server uses user-provided credentials. In local development, set `ENVIRONMENT=local` and `LOCAL_API_KEY` in your `.env` file.
+This server uses a developer-provided API key. Set `API_KEY` in your `.env` file.
 
-When deployed to Gumstack, users will enter their api_key in the Gumstack UI.
+Users don't need to provide any credentials - the API key is managed by the server.
 
 
 ## Tools

@@ -7,7 +7,7 @@ from mcp.server.fastmcp import FastMCP
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
-from my_example_server.utils.auth import get_credentials
+from my_example_server.utils.auth import GitHubAuthProvider, get_credentials
 
 
 logging.basicConfig(
@@ -29,14 +29,15 @@ async def health_check(request: Request) -> JSONResponse:
 @mcp.tool()
 async def example_tool(query: str) -> str:
     """
-    Example tool using user-provided credentials.
+    Example tool using OAuth credentials.
 
     Args:
         query: The query to process
     """
+    # get_credentials() returns OAuth tokens stored by backend after OAuth exchange
     creds = await get_credentials()
-    api_key = creds.get("api_key", "")
-    logger.info("Processing with credential: %s...", api_key[:8])
+    access_token = creds.get("access_token", "")
+    logger.info("Processing with OAuth token: %s...", access_token[:8] if access_token else "none")
     return f"Processed: {query}"
 
 
@@ -52,6 +53,9 @@ def main():
 
     if os.environ.get("ENVIRONMENT") != "local":
         host = GumstackHost(mcp)
+
+        # Register OAuth provider for github
+        host.register_auth(GitHubAuthProvider())
 
         # Use gumstack host which handles middleware, interceptors, and auth routes
         host.run(host="0.0.0.0", port=PORT)
