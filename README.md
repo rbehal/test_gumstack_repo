@@ -1,6 +1,6 @@
 # My Example Server
 
-An example MCP server
+An example MCP serversdffdsf
 
 ## Setup
 
