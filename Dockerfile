@@ -38,7 +38,7 @@ ENV ENVIRONMENT=production
 
 # Health check endpoint
 HEALTHCHECK --interval=10s --timeout=5s --start-period=10s --retries=3 \
-  CMD curl -f http://localhost:8080/health || exit 1
+  CMD curl -f http://localhost:8080/health_check || exit 1
 
 # Run the MCP server
 CMD ["uv", "run", "python", "-m", "my_example_server.server"]
