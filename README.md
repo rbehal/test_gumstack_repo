@@ -18,7 +18,7 @@ cp example.env .env
 
 ```bash
 # Run the server
-./run.fsdafds
+./run.fsdafdssdfdsfsd
 
 # Or directly
 uv run python -m src.server
