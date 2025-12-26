@@ -12,7 +12,7 @@ uv sync
 cp example.env .env
 
 # Edit .env with your values
-```
+```dfgdfggdf
 
 ## Local Development
 
